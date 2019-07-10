@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Van Gogh Demo</title>
+    <script src="https://aframe.io/releases/0.7.1/aframe.min.js"></script>
+    <script src="https://3d.io/releases/3dio-js/1.0.x-beta/3dio.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
+  </head>
+  <body>
+    <a-scene class="fullscreen">
+      <a-assets>
+        <a-asset-item id="ear" src="./assets/scene.gltf"></a-asset-item>
+        <img id="portrait" crossorigin="anonymous" src="https://cdn.glitch.com/9b79eb22-77f2-47d5-9808-0e9605f039c8%2FVincent_van_Gogh_-_Self_portrait_with_bandaged_ear_F529.jpg?1528619412794" />
+        <img id="messer" crossorigin="anonymous" src="./assets/rasiermesser.jpg" />
+      </a-assets>
+
+      <!-- camera & cursor -->
+      <a-entity id="head" camera="userHeight: 1.6" position="1.3 0 1.4" rotation="0 90 0" look-controls wasd-controls>
+        <a-entity cursor="fuse: true; fuseTimeout: 1500" position="0 0 -0.2" geometry="primitive: ring; radiusInner: 0.005; radiusOuter: 0.007" material="color: #00ffff; shader: flat">
+          <a-animation begin="click" easing="ease-out" attribute="scale" dur="150"
+                       fill="forwards" from="0.1 0.1 0.1" to="1 1 1"></a-animation>
+          <a-animation begin="cursor-fusing" easing="ease-in" attribute="scale" dur="1500"
+                       fill="backwards" from="1 1 1" to="0.1 0.1 0.1"></a-animation>          
+        </a-entity>
+      </a-entity>
+      
+      <!-- Apartment object -->
+      <a-entity position="11.8 0 15.3" rotation="0 -70 0">
+        <a-entity id="bed" io3d-furniture="id:c912d586-4a02-49d3-bfba-a3b6e203cd4b" position="-19.44 0 7.8" rotation="0 160 0" shadow="receive:true; cast:true"></a-entity>
+        <a-entity id="chair" io3d-furniture="id:08f03489-61ee-4480-b141-a9b16bbb56c2" position="-16.8 0 8" rotation="0 250 0" shadow="receive:true; cast:true"></a-entity>
+        <a-entity id="chair2" io3d-furniture="id:08f03489-61ee-4480-b141-a9b16bbb56c2" position="-18.5 0 8.7" rotation="0 220 0" shadow="receive:true; cast:true"></a-entity>
+        <a-entity id="table" io3d-furniture="id:00015a7c-b361-4efc-8380-d59934a52f0d" position="-17.6 0 9.3" rotation="0 150 0" shadow="receive:true; cast:true"></a-entity>
+        <a-entity id="flask" io3d-furniture="id:7dc0ee24-7aeb-440d-91ee-79690759f9f2" position="-17.6 0.4 9.2" rotation="0 0 0" shadow="receive:true; cast:true"></a-entity>
+        <a-entity id="flask2" io3d-furniture="id:7dc0ee24-7aeb-440d-91ee-79690759f9f2" position="-17.8 0.4 9.2" rotation="0 170 0" shadow="receive:true; cast:true"></a-entity>
+        <a-entity id="books" io3d-furniture="id:4fbee87a-48ae-4b2a-89d5-711e5061f4ae" position="-17.3 0.4 9.2" rotation="0 150 0" shadow="receive:true; cast:true"></a-entity>
+        <a-entity id="backpack" io3d-furniture="id:6c418bb6-3062-4290-98e5-cef21c0263f8" position="-17.8 0.4 9.6" rotation="0 140 0" shadow="receive:true; cast:true"></a-entity>
+        <a-entity id="hanger" io3d-furniture="id:a3bd8e4c-bb3b-489c-8dda-1d1e8be535c5" position="-19.15 0 9.4" rotation="0 160 0" shadow="receive:true; cast:true"></a-entity>
+        <a-entity id="painting" io3d-furniture="id:3c0e5f55-b2f4-4f4f-a6e1-f49600cf1707" 
+                  position="-19.9 0.4 7.8" rotation="0 70 0" shadow="receive:true; cast:true"
+                  event-set__enter="_event: mouseenter; _target: #infoPanel; visible: true"
+                  event-set__leave="_event: mouseleave; _target: #infoPanel; visible: false"></a-entity>
+        <a-entity id="lamp" io3d-furniture="id:f734725a-6dfe-4b1d-8487-9cdb9218f4a6" position="-18 0.95 7" shadow="receive:true; cast:false"></a-entity>
+        <a-gltf-model src="#ear" position="-18.037 0.457 9.217" gltf-model="./assets/scene.gltf" rotation="-43.773975547994894 152.406773504799 100.89786772253797" scale="0.005 0.005 0.005" 
+        event-set__enter="_event: mouseenter; _target: #infoPanel_2; visible: true"
+        event-set__leave="_event: mouseleave; _target: #infoPanel_2; visible: false"></a-gltf-model>
+
+        <!-- apartment -->
+        <a-entity id="apartment" 
+                  io3d-data3d="key:/535e624259ee6b0200000484/170919-1152-x2j6lj/archilogic_2017-09-19_11-47-43_d8pGud.gz.data3d.buffer; 
+                               lightMapIntensity:1.0; 
+                               lightMapExposure:0.7"
+                  shadow="receive:true; cast:false"></a-entity>
+      </a-entity>
+      
+      <!-- info panel -->
+      <a-entity id="infoPanel" rotation="0 0 0" position="-1.2 1.2 -0.7" visible="false">
+        <a-plane scale="1.0 0.5 1.0" color="aqua" transparent="true" opacity="0.5"></a-plane>
+        <a-entity text="value: Vincent van Gogh is well-known for his self-portraits — he painted over 30 of them between 1886 and 1889. Post-impressionist selfies?; align: center; baseline: center; wrapCount: 25.0"></a-entity>
+        <a-image rotation="0 90 0" src="#portrait" position="-0.5 0 0.25" scale="0.5 0.5 1">
+        </a-image>
+      </a-entity>
+
+        <!-- info panel_2 -->
+        <a-entity id="infoPanel_2" rotation="0 59.53031491409253 0" position="-2.41 0.902 1.042">
+                <a-plane scale="1 0.5 1" color="aqua" transparent="true" opacity="0.5"></a-plane>
+                <a-entity text="align:center;value:On the evening of December 23, 1888 van Gogh, got annoyed by Paul Gauguin and drunk from absinthe. So he cut off a piece of his left ear.;wrapCount:25"></a-entity>
+                <a-image rotation="0 90 0" src="#messer" position="-0.5 0 0.25" scale="0.5 0.5 1">
+                </a-image>
+        </a-entity>
+      
+      <!-- light -->
+      <a-entity id="light-ambient" light="type:ambient; color:#b09b9b; intensity:0.75"></a-entity>
+      <a-entity id="light-xx"
+                light="angle:59.3;
+                 intensity:0.3;
+                 castShadow:true;
+                 shadowBias:0.5;
+                 shadowMapWidth:1024;
+                 shadowMapHeight:1024;
+                 color:#fef8d8;
+                 shadowCameraLeft:-4;
+                 shadowCameraBottom:-10;
+                 shadowCameraRight:2;
+                 shadowCameraFar:5;
+                 shadowCameraFov:20;
+                 shadowCameraNear:0" 
+                position="-0.019 2.337 0.665"></a-entity>
+      
+      <a-entity id="light-lamp"
+                light="decay:0.47;
+                 distance:3.7;
+                 castShadow:false;
+                 penumbra:0.7;
+                 intensity:1.6;
+                 angle:90;
+                 type:spot;
+                 color:#f7f3d2" 
+                position="-1 2.5 0.9" 
+                rotation="260 0 0"></a-entity>   
+      
+      <a-sky color="#C1E2E8"></a-sky>
+    </a-scene>
+  </body>
+</html>
